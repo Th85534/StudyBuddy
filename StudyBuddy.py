@@ -43,9 +43,6 @@ chat_history = st.session_state.chat_history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# for message in st.session_state.messages:
-#     with st.chat_message(message["role"]):
-#         st.markdown(message["content"])
 
 prompt_for_text  = """
 You are an expert in maths, physics, computer science  and engineering. You have a PhD from MIT and work at Google Research.
@@ -63,12 +60,7 @@ Finally solve the problem by using these references and provide the results insi
 for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])    
-# with st.container(height=320,border=False):
-#     container = st.container(border=True)
-#     st.write(" ")
-#     for message in st.session_state.messages:
-#         with st.chat_message(message["role"]):
-#             st.markdown(message["content"])
+
 with st.container():    
     user_text = st.chat_input("Chat:")
     if user_text is not None:
@@ -78,16 +70,12 @@ with st.container():
         
         with st.chat_message("user"):
             st.markdown(user_text)
-            # st.write(user_text)
         with st.chat_message("assistant"):
             if user_text == "":
                 st.write("Please enter some text.")
             else:                                            
                with st.spinner("Thinking..."):
-                
                 st.markdown(response)
-                # st.write(response)
-
                 chat_history.append("You: " + user_text)
                 chat_history.append("Bot: " + response)
             
@@ -95,7 +83,7 @@ with st.container():
                 st.sidebar.text("Chat Summary:")
                 first_user_line = user_text.split("\n")[0]  
                 st.sidebar.markdown(f"[{first_user_line}](#{len(chat_history)})")
-# if st.button("Upload file"):
+                   
     uploaded_file = st.file_uploader(" ", type=["jpg", "jpeg", "png"])
     if uploaded_file is not None:
         if st.button("submit"):  
